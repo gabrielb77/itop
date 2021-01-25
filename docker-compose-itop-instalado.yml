@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  mysql-itop:
+    image: localregistry:5000/mysql:5.7.32
+    deploy:
+      replicas: 1
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-itop-datadir:/var/lib/mysql
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+
+  web-itop:
+    image: localregistry:5000/itop-instalado:1.0
+    deploy:
+      replicas: 1
+    ports:
+      - "8080:80"
+      - "8443:443"
+
+volumes:
+  mysql-itop-datadir:
+    driver_opts:
+      type: "nfs"
+      o: "addr=172.30.0.20,nolock,soft,rw"
+      device: ":/ibm/cluster_docker/mysql-itop-datadir"
+
