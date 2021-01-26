@@ -1,8 +1,5 @@
 FROM localregistry:5000/debian
 
-ENV http_proxy="http://193.56.47.20:8080"
-ENV https_proxy="http://193.56.47.20:8080"
-
 HEALTHCHECK CMD curl -s http://localhost >/dev/null || exit 1
 
 EXPOSE 8080
